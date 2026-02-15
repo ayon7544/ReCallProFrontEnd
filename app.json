@@ -1,39 +1,36 @@
 {
   "expo": {
-    "name": "Recall-Pro",
-    "slug": "Recall-Pro",
+    "name": "Recall Pro",
+    "slug": "recall-pro",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
     "scheme": "recallpro",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/images/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "icon": "./assets/images/AppIcon.png",
+    "statusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "transparent",
+      "translucent": true
     },
+    "splash": {
+      "image": "./assets/images/AppIcon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F0B18"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.ayonghosh.recallpro",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+        "backgroundColor": "#0F0B18"
+      }
     },
     "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router"
-    ],
-    "experiments": {
-      "typedRoutes": true
+      "bundler": "metro"
     }
   }
 }
