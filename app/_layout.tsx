@@ -48,7 +48,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
       setHasNavigated(true);
-      router.replace("/auth/register"); // use replace to avoid back navigation to splash
+      router.replace("/auth/otpVerification"); // use replace to avoid back navigation to splash
     }
   }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
 
