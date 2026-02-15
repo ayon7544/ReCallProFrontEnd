@@ -1,13 +1,9 @@
 import "../global.css";
 import React, { useEffect, useState } from "react";
-import { Redirect, Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import SplashScreen from "@/components/initial/Splashscreen";
-import {
-  AlertNotificationRoot,
-  Toast,
-  ALERT_TYPE,
-} from "react-native-alert-notification";
+import { AlertNotificationRoot } from "react-native-alert-notification";
 import { useFonts } from "expo-font";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -16,8 +12,11 @@ import * as ExpoSplashScreen from "expo-splash-screen";
 ExpoSplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const router = useRouter();
+
   const [showSplash, setShowSplash] = useState(true);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  const [hasNavigated, setHasNavigated] = useState(false);
 
   const [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
@@ -37,7 +36,6 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
-  // Ensure minimum 2 seconds before allowing splash to hide
   useEffect(() => {
     const timer = setTimeout(() => {
       setMinTimeElapsed(true);
@@ -46,10 +44,14 @@ export default function RootLayout() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Only hide splash when BOTH conditions are met:
-  // 1. Fonts are loaded
-  // 2. Minimum 2 seconds have elapsed
-  // 3. Splash animation has finished
+  // Push route once everything is ready
+  useEffect(() => {
+    if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
+      setHasNavigated(true);
+      router.replace("/auth"); // use replace to avoid back navigation to splash
+    }
+  }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
+
   if (!fontsLoaded || !minTimeElapsed || showSplash) {
     return (
       <>
@@ -102,7 +104,7 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: "#fff" },
             animation: "slide_from_right",
           }}
-        ></Stack>
+        />
       </AlertNotificationRoot>
     </>
   );

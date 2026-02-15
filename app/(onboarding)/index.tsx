@@ -47,52 +47,52 @@ const OnboardingScreen: React.FC = () => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prev) => prev + 1);
     } else {
-      router.push("/(auth)");
+      router.push("/auth");
     }
   };
 
-return (
-  <SafeAreaView className="flex-1 bg-[#0F0B18]">
-    <StatusBar barStyle="light-content" />
+  return (
+    <SafeAreaView className="flex-1 bg-[#0F0B18]">
+      <StatusBar barStyle="light-content" />
 
-    {/* SECTION 1: Illustration - Centered in the top area */}
-    <Animated.View
-      style={{
-        flex: 3, // Changed from 7 to balanced flex
-        opacity: fadeAnim,
-        transform: [{ scale: scaleAnim }],
-      }}
-      className="items-center justify-end w-full pb-4"
-    >
-      <OnboardingIllustration SvgComponent={content.Svg} />
-    </Animated.View>
+      {/* SECTION 1: Illustration - Centered in the top area */}
+      <Animated.View
+        style={{
+          flex: 3,
+          opacity: fadeAnim,
+          transform: [{ scale: scaleAnim }],
+        }}
+        className="items-center justify-end w-full pb-4"
+      >
+        <OnboardingIllustration imageSrc={content.image} />
+      </Animated.View>
 
-    {/* SECTION 2: Content */}
-    <Animated.View
-      style={{
-        flex: 2, // Combined with flex 3 above, this creates a 60/40 split
-        opacity: fadeAnim,
-        transform: [{ translateY: slideAnim }],
-      }}
-      className="px-8 justify-between pb-12"
-    >
-      <View className="items-center">
-        <OnboardingText
-          title={content.title}
-          description={content.description}
-        />
-      </View>
+      {/* SECTION 2: Content */}
+      <Animated.View
+        style={{
+          flex: 2,
+          opacity: fadeAnim,
+          transform: [{ translateY: slideAnim }],
+        }}
+        className="px-8 justify-between pb-12"
+      >
+        <View className="items-center">
+          <OnboardingText
+            title={content.title}
+            description={content.description}
+          />
+        </View>
 
-      <View className="w-full gap-y-8">
-        <PaginationDots total={totalSteps} activeIndex={currentStep} />
-        <PrimaryButton
-          label={currentStep === totalSteps - 1 ? "Get Started" : "Next"}
-          onPress={handleNext}
-        />
-      </View>
-    </Animated.View>
-  </SafeAreaView>
-);
+        <View className="w-full gap-y-8">
+          <PaginationDots total={totalSteps} activeIndex={currentStep} />
+          <PrimaryButton
+            label={currentStep === totalSteps - 1 ? "Get Started" : "Next"}
+            onPress={handleNext}
+          />
+        </View>
+      </Animated.View>
+    </SafeAreaView>
+  );
 };
 
 export default OnboardingScreen;
