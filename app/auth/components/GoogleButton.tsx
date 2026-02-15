@@ -17,7 +17,7 @@ export const GoogleButton: React.FC<SocialButtonProps> = ({
 }) => (
   <TouchableOpacity
     onPress={onPress}
-    className="flex-row items-center justify-center w-full bg-[#eaf8ff] py-4 rounded-xl border border-[#a2dfff]"
+    className="flex-row items-center justify-center w-full bg-[#463823] py-4 rounded-xl border border-[#4F4F59]"
   >
     <View className="flex items-center justify-center mr-3">
       {SvgComponent ? (
@@ -30,7 +30,7 @@ export const GoogleButton: React.FC<SocialButtonProps> = ({
         />
       )}
     </View>
-    <Text className="text-[#1a1c1e] text-base font-bold">{label}</Text>
+    <Text className="text-white text-base font-bold">{label}</Text>
   </TouchableOpacity>
 );
 

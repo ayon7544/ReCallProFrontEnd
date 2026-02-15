@@ -13,6 +13,8 @@ import LoginLogo from "@/assets/images/SplashIcon.svg";
 import SvgIcon from "@/components/shared/svgIcon";
 import { AuthText } from "./components/AuthText";
 import { EmailInput } from "@/components/shared/EmailField";
+import { TextField } from "@/components/shared/TextField";
+import { MobileNumberInput } from "@/components/shared/PhoneNumberField";
 import PasswordInput from "@/components/shared/PasswordField";
 import { Button } from "@/components/shared/Button";
 import GoogleButton from "./components/AuthText";
@@ -20,23 +22,27 @@ import googleSvg from "@/assets/images/auth/google-button.svg";
 import { Check } from "lucide-react-native";
 import ShowToast from "@/components/shared/ShowToast";
 import { useRouter } from "expo-router";
-import useLogin from "./services/hooks/useLogin";
-const Login = () => {
+import useRegister from "./services/hooks/useRegister";
+
+const register = () => {
   const {
+    fullName,
+    setFullName,
+    mobileNumber,
+    setMobileNumber,
     email,
     setEmail,
     password,
     setPassword,
-    rememberMe,
-    setRememberMe,
+    agreedToTerms,
+    setAgreedToTerms,
     loading,
     error,
     successMessage,
-    login,
-  } = useLogin();
-
-  const { width } = Dimensions.get("window");
+    register,
+  } = useRegister();
   const router = useRouter();
+
   const handleLoginGoogle = () => {
     console.log("Google Sign In clicked");
   };
@@ -55,19 +61,25 @@ const Login = () => {
           showsVerticalScrollIndicator={false}
         >
           <View className="flex-1 px-6 pt-8 pb-6 justify-center">
-            <View className="items-center mb-4">
-              <SvgIcon SvgComponent={LoginLogo} width={width * 0.5} />
-            </View>
-            <AuthText
-              title="Let's start!"
-              description="Sign in to manage your clients"
-            />
+            <AuthText title="Create Account" description="" />
             <ShowToast
               message={error || successMessage}
               type={error ? "error" : successMessage ? "success" : "info"}
             />
             {/* Input Fields */}
             <View>
+              <TextField
+                label="Full Name"
+                placeholder="Enter Your Name"
+                value={fullName}
+                onChangeText={setFullName}
+              />
+              <MobileNumberInput
+                label="Mobile Number"
+                placeholder="1234567890"
+                value={mobileNumber}
+                onChangeText={setMobileNumber}
+              />
               <EmailInput
                 label="Email"
                 placeholder="Enter your email"
@@ -84,33 +96,27 @@ const Login = () => {
 
               <View className="flex-row justify-between items-center py-2 my-3">
                 <TouchableOpacity
-                  onPress={() => setRememberMe(!rememberMe)}
+                  onPress={() => setAgreedToTerms(!agreedToTerms)}
                   className="flex-row items-center"
                 >
                   <View
                     className={`w-5 h-5 border rounded mr-2 flex items-center justify-center ${
-                      rememberMe ? "border-green-700 " : "border-white"
+                      agreedToTerms ? "border-green-700" : "border-white"
                     }`}
                   >
-                    {rememberMe && <Check size={14} color="#22c55e" />}
+                    {agreedToTerms && <Check size={14} color="#22c55e" />}
                   </View>
                   <Text
-                    className={`text-xs ${rememberMe ? "text-white" : "text-gray-400"}`}
+                    className={`text-xs ${agreedToTerms ? "text-white" : "text-gray-400"}`}
                   >
-                    Remember me
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity>
-                  <Text className="text-red-700 text-xs font-bold">
-                    Forgot password
+                    I Agree to Terms & Conditions
                   </Text>
                 </TouchableOpacity>
               </View>
 
               <Button
-                label={loading ? "Logging in..." : "Login"}
-                onPress={login}
+                label={loading ? "Registering..." : "Register"}
+                onPress={register}
                 disabled={loading}
               />
             </View>
@@ -126,21 +132,22 @@ const Login = () => {
 
             {/* Footer & Google */}
             <View className="items-center">
-              <Text className="text-gray-400 mb-4">
-                Don't have an account?{" "}
-                <Text
-                  className="text-white font-bold"
-                  onPress={() => router.push("/auth/register")} // navigate to register screen
-                >
-                  Register
-                </Text>
-              </Text>
-
               <GoogleButton
                 label="Sign In with Google"
                 onPress={handleLoginGoogle}
                 SvgComponent={googleSvg}
               />
+            </View>
+            <View className="my-6 items-center">
+              <Text className="text-gray-400 text-center">
+                Have a account?{" "}
+                <Text
+                  className="text-white font-bold"
+                  onPress={() => router.push("/auth/login")}
+                >
+                  Login
+                </Text>
+              </Text>
             </View>
           </View>
         </ScrollView>
@@ -149,4 +156,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default register;

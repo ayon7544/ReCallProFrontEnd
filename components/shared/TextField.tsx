@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, TextInput } from "react-native";
-
+import { useState } from "react";
 interface InputProps {
   label: string;
   placeholder: string;
@@ -8,14 +8,13 @@ interface InputProps {
   onChangeText: (text: string) => void;
 }
 
-export const EmailInput: React.FC<InputProps> = ({
+export const TextField: React.FC<InputProps> = ({
   label,
   placeholder,
   value,
   onChangeText,
 }) => {
-  const [isFocused, setIsFocused] = useState(false);
-
+    const [isFocused, setIsFocused] = useState(false);
   return (
     <View className="mb-5 w-full">
       <Text className="text-white text-base font-bold mb-2 ml-1">{label}</Text>
@@ -29,8 +28,8 @@ export const EmailInput: React.FC<InputProps> = ({
           placeholderTextColor="#fff"
           value={value}
           onChangeText={onChangeText}
-          keyboardType="email-address"
-          autoCapitalize="none"
+          keyboardType="default"
+          autoCapitalize="words"
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           className="text-white text-base"

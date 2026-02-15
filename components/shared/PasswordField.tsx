@@ -16,23 +16,30 @@ const PasswordInput: React.FC<PasswordProps> = ({
   onChangeText,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View className="mb-6 w-full px-4">
-      <Text className="text-white text-lg font-bold mb-3 ml-1">{label}</Text>
-      <View className="bg-[#121217] border border-[#3a2d26] rounded-xl px-4 py-4 flex-row items-center">
+    <View className="mb-6 w-full">
+      <Text className="text-white text-base font-bold mb-2 ml-1">{label}</Text>
+      <View
+        className={`${
+          isFocused ? "bg-[#121217]" : ""
+        } border border-[#C9A367] rounded-xl flex-row items-center px-4`}
+      >
         <TextInput
           placeholder={placeholder}
-          placeholderTextColor="#7d848d"
+          placeholderTextColor="#fff"
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={!showPassword}
           autoCapitalize="none"
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           className="flex-1 text-white text-base"
         />
         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
           {showPassword ? (
-            <Eye size={20} color="#7d848d" />
+            <Eye size={20} color="#fff" />
           ) : (
             <EyeOff size={20} color="#7d848d" />
           )}
