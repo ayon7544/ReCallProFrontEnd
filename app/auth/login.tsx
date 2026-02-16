@@ -56,7 +56,7 @@ const Login = () => {
   );
 
   const handleLoginGoogle = () => {
-    console.log("Google Sign In clicked");
+
   };
 
   return (
