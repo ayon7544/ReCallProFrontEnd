@@ -47,7 +47,7 @@ const OnboardingScreen: React.FC = () => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prev) => prev + 1);
     } else {
-      router.push("/auth");
+      router.push("/auth/login");
     }
   };
 

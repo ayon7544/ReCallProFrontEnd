@@ -8,7 +8,6 @@ const useOtp = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const sendOtp = async () => {
     try {
-      console.log("Email",email);
       if (!email) throw new Error("Please enter your email");
       setLoading(true);
       setSuccessMessage("OTP sent to your email!");

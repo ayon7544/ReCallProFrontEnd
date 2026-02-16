@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StatusBar,
   KeyboardAvoidingView,
-  Platform,
   ScrollView,
   Dimensions,
+  BackHandler,
 } from "react-native";
 import LoginLogo from "@/assets/images/SplashIcon.svg";
 import SvgIcon from "@/components/shared/svgIcon";
@@ -19,8 +19,9 @@ import GoogleButton from "./components/AuthText";
 import googleSvg from "@/assets/images/auth/google-button.svg";
 import { Check } from "lucide-react-native";
 import ShowToast from "@/components/shared/ShowToast";
-import { useRouter } from "expo-router";
+import { useRouter, useFocusEffect, useNavigation } from "expo-router";
 import useLogin from "./services/hooks/useLogin";
+
 const Login = () => {
   const {
     email,
@@ -37,6 +38,23 @@ const Login = () => {
 
   const { width } = Dimensions.get("window");
   const router = useRouter();
+  const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => {
+      navigation.setOptions({
+        gestureEnabled: false,
+        headerBackVisible: false,
+      });
+      const subscription = BackHandler.addEventListener(
+        "hardwareBackPress",
+        () => true, 
+      );
+
+      return () => subscription.remove();
+    }, [navigation]),
+  );
+
   const handleLoginGoogle = () => {
     console.log("Google Sign In clicked");
   };
@@ -58,15 +76,17 @@ const Login = () => {
             <View className="items-center mb-4">
               <SvgIcon SvgComponent={LoginLogo} width={width * 0.5} />
             </View>
+
             <AuthText
               title="Let's start!"
               description="Sign in to manage your clients"
             />
+
             <ShowToast
               message={error || successMessage}
               type={error ? "error" : successMessage ? "success" : "info"}
             />
-            {/* Input Fields */}
+
             <View>
               <EmailInput
                 label="Email"
@@ -89,19 +109,24 @@ const Login = () => {
                 >
                   <View
                     className={`w-5 h-5 border rounded mr-2 flex items-center justify-center ${
-                      rememberMe ? "border-green-700 " : "border-white"
+                      rememberMe ? "border-green-700" : "border-white"
                     }`}
                   >
                     {rememberMe && <Check size={14} color="#22c55e" />}
                   </View>
+
                   <Text
-                    className={`text-xs ${rememberMe ? "text-white" : "text-gray-400"}`}
+                    className={`text-xs ${
+                      rememberMe ? "text-white" : "text-gray-400"
+                    }`}
                   >
                     Remember me
                   </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => router.push("/auth/emailConfirmation")}
+                >
                   <Text className="text-red-700 text-xs font-bold">
                     Forgot password
                   </Text>
@@ -115,7 +140,6 @@ const Login = () => {
               />
             </View>
 
-            {/* Divider */}
             <View className="flex-row items-center my-6">
               <View className="flex-1 h-[0.5px] bg-gray-800" />
               <Text className="text-gray-500 mx-4 text-xs">
@@ -124,13 +148,12 @@ const Login = () => {
               <View className="flex-1 h-[0.5px] bg-gray-800" />
             </View>
 
-            {/* Footer & Google */}
             <View className="items-center">
               <Text className="text-gray-400 mb-4">
                 Don't have an account?{" "}
                 <Text
                   className="text-white font-bold"
-                  onPress={() => router.push("/auth/register")} // navigate to register screen
+                  onPress={() => router.push("/auth/register")}
                 >
                   Register
                 </Text>
