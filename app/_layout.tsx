@@ -8,6 +8,7 @@ import { useFonts } from "expo-font";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as ExpoSplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 ExpoSplashScreen.preventAutoHideAsync();
 
@@ -48,21 +49,21 @@ export default function RootLayout() {
   useEffect(() => {
     if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
       setHasNavigated(true);
-      router.replace("/subscription/subscriptions"); // use replace to avoid back navigation to splash
+      router.replace("/tabs/home"); // use replace to avoid back navigation to splash
     }
   }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
 
   if (!fontsLoaded || !minTimeElapsed || showSplash) {
     return (
-      <>
+      <SafeAreaProvider>
         <StatusBar style="light" />
         <SplashScreen onFinish={() => setShowSplash(false)} />
-      </>
+      </SafeAreaProvider>
     );
   }
 
   return (
-    <>
+    <SafeAreaProvider>
       <StatusBar style="dark" />
       <AlertNotificationRoot
         theme="dark"
@@ -106,6 +107,6 @@ export default function RootLayout() {
           }}
         />
       </AlertNotificationRoot>
-    </>
+    </SafeAreaProvider>
   );
 }

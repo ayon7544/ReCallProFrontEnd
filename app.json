@@ -27,7 +27,13 @@
       "package": "com.ayonghosh.recallpro",
       "adaptiveIcon": {
         "backgroundColor": "#0F0B18"
-      }
+      },
+      "navigationBar": {
+        "visible": false,
+        "barStyle": "light-content",
+        "backgroundColor": "#00000000"
+      },
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "bundler": "metro"
