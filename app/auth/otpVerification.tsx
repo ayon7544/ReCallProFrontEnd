@@ -1,14 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, TextInput, Text } from "react-native";
+import React, { useRef, useEffect } from "react";
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  StatusBar,
+  ScrollView,
+} from "react-native";
 import { Button } from "@/components/shared/Button";
 import { GeneralText } from "@/components/shared/GeneralText";
 import OTPInput, { OTPInputHandle } from "@/components/shared/OtpInput";
 import ResendCode from "@/components/shared/ResentCode";
 import useOtp from "./services/hooks/useOtp";
-import { KeyboardAvoidingView, StatusBar } from "react-native";
-import { ScrollView } from "react-native";
+import ShowToast from "@/components/shared/ShowToast";
+import { useLocalSearchParams } from "expo-router";
+
 const OtpVerification = () => {
   const otpRef = useRef<OTPInputHandle>(null);
+  const params = useLocalSearchParams();
+
   const {
     email,
     setEmail,
@@ -21,31 +30,16 @@ const OtpVerification = () => {
     verifyOtp,
   } = useOtp();
 
-  const [resendTimer, setResendTimer] = useState(30);
-  const [canResend, setCanResend] = useState(true);
-
-  // Countdown for resend button
+  // Set email from route params when component mounts
   useEffect(() => {
-    if (!canResend) {
-      const interval = setInterval(() => {
-        setResendTimer((prev) => {
-          if (prev <= 1) {
-            clearInterval(interval);
-            setCanResend(true);
-            return 30;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      return () => clearInterval(interval);
+    if (params.email && typeof params.email === "string") {
+      setEmail(params.email);
     }
-  }, [canResend]);
+  }, [params.email]);
 
   const handleSendOtp = async () => {
     await sendOtp();
     otpRef.current?.reset();
-    setCanResend(false);
-    setResendTimer(30);
   };
 
   const handleVerifyOtp = async () => {
@@ -68,7 +62,11 @@ const OtpVerification = () => {
           <View className="flex-1 px-6 pt-8 pb-6 justify-center">
             <GeneralText
               title="OTP Verification"
-              description="Enter the 6-digit code that you received on your email"
+              description={`Enter the 6-digit code that you received on ${email || "your email"}`}
+            />
+            <ShowToast
+              message={error || successMessage}
+              type={error ? "error" : successMessage ? "success" : "info"}
             />
             <View className="items-center py-2">
               <OTPInput
@@ -78,17 +76,14 @@ const OtpVerification = () => {
                 onChange={(d) => setOtp(d.join(""))}
               />
             </View>
+
             <View className="items-center">
               <ResendCode
-                isVisible={!canResend}
-                timerSeconds={resendTimer}
+                isVisible={true}
+                timerSeconds={30}
                 onResend={handleSendOtp}
               />
             </View>
-            {error && <Text className="text-red-500 mt-2">{error}</Text>}
-            {successMessage && (
-              <Text className="text-green-500 mt-2">{successMessage}</Text>
-            )}
 
             <Button
               label="Verify OTP"

@@ -43,6 +43,20 @@ const register = () => {
   } = useRegister();
   const router = useRouter();
 
+  const handleRegister = async () => {
+    const success = await register();
+
+    if (success) {
+      // Navigate to verification screen with email parameter after a brief delay
+      setTimeout(() => {
+        router.push({
+          pathname: "/auth/otpVerification", // Change this to your actual screen path
+          params: { email },
+        });
+      }, 500); // 1.5 second delay to show success message
+    }
+  };
+
   const handleLoginGoogle = () => {
     console.log("Google Sign In clicked");
   };
@@ -116,7 +130,7 @@ const register = () => {
 
               <Button
                 label={loading ? "Registering..." : "Register"}
-                onPress={register}
+                onPress={handleRegister}
                 disabled={loading}
               />
             </View>

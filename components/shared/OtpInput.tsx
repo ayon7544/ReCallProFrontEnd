@@ -83,7 +83,8 @@ const OTPInput = forwardRef<OTPInputHandle, OTPInputProps>(
         setFocusIndex(next);
         inputRefs.current[next]?.focus();
       } else {
-        inputRefs.current[index]?.blur();
+        // Stay at the last box, keep it focused
+        setFocusIndex(index);
         onComplete?.(updated.join(""));
       }
     };

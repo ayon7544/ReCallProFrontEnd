@@ -1,20 +1,16 @@
 import { useState } from "react";
 
 const useOtp = () => {
-  const [email, setEmail] = useState(""); 
-  const [otp, setOtp] = useState(""); 
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  // Function to "send" OTP (simulate sending to email)
   const sendOtp = async () => {
     try {
+      console.log("Email",email);
       if (!email) throw new Error("Please enter your email");
       setLoading(true);
-
-      // Simulate sending OTP (e.g., call your backend here)
-      // Example: await api.sendOtp(email)
       setSuccessMessage("OTP sent to your email!");
       setTimeout(() => setSuccessMessage(null), 3500);
     } catch (err) {
