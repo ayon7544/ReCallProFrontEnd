@@ -62,7 +62,7 @@ const ResendCode: React.FC<ResendCodeProps> = ({
             <ActivityIndicator size="small" color="#FFFFFF" className="mr-2" />
           ) : (
             <Text className="text-sm font-bold text-white tracking-wide">
-              Resend now
+              Resend Now
             </Text>
           )}
         </TouchableOpacity>

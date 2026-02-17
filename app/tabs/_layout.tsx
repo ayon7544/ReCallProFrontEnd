@@ -4,13 +4,13 @@ import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 const CustomTabBar = ({ state, descriptors, navigation }: any) => {
   return (
-    <View className="absolute bottom-6 left-5 right-5 h-20 flex-row items-center justify-around px-2">
+    <View className="absolute bottom-6 left-5 right-5 flex-row items-center justify-around px-2">
       <View
         className="absolute inset-0 rounded-3xl"
         style={{
-          backgroundColor: "#1a1a1a",
-          borderWidth: 1,
-          borderColor: "#333",
+          // backgroundColor: "#1a1a1a",
+          // borderWidth: 1,
+          // borderColor: "#333",
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 0.3,
           shadowRadius: 8,
@@ -45,7 +45,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
                   className="w-[50px] h-[50px] bg-[#C9A367] rounded-full items-center justify-center"
                   style={{
                     // Add additional glow to the button itself
-                    // shadowColor: "#C9A367",
+                    shadowColor: "#C9A367",
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.5,
                     shadowRadius: 12,
@@ -86,7 +86,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
           <TouchableOpacity
             key={route.key}
             onPress={() => navigation.navigate(route.name)}
-            className="flex-1 items-center justify-center pt-2 z-10"
+            className="flex-1 items-center justify-center  z-10"
           >
             <Ionicons
               name={isFocused ? iconName : `${iconName}-outline`}

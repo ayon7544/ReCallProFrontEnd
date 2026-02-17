@@ -28,8 +28,6 @@ const EmailConfirmation = () => {
 
   return (
     <View className="flex-1 bg-[#0F0B18]">
-      <StatusBar barStyle="light-content" />
-
       <KeyboardAvoidingView
         className="flex-1"
         behavior={Platform.OS === "ios" ? "padding" : undefined}

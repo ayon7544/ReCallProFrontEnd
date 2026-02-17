@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Pressable, ViewStyle } from "react-native";
+import { Text, TouchableOpacity, ViewStyle } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
 interface PrimaryButtonProps {
@@ -11,16 +11,9 @@ interface PrimaryButtonProps {
 export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   label,
   onPress,
-  style,
 }) => {
   return (
-    <Pressable
-      onPress={onPress}
-      style={({ pressed }) => [
-        style,
-        { opacity: pressed ? 0.85 : 1 }, // pressed effect
-      ]}
-    >
+    <TouchableOpacity onPress={onPress} activeOpacity={1}>
       <LinearGradient
         colors={["#C9A367", "rgba(208,170,105,0.7)"]}
         start={{ x: 0.5, y: 0 }}
@@ -36,6 +29,6 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
       >
         <Text className="text-white font-bold text-lg">{label}</Text>
       </LinearGradient>
-    </Pressable>
+    </TouchableOpacity>
   );
 };

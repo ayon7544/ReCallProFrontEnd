@@ -21,7 +21,6 @@ const Subscriptions = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#0F0B18" }}>
-      <StatusBar barStyle="light-content" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior="padding"

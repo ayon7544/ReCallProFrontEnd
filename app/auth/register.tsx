@@ -63,7 +63,6 @@ const register = () => {
 
   return (
     <View className="flex-1 bg-[#0F0918]">
-      <StatusBar barStyle="light-content" />
       <KeyboardAvoidingView
         className="flex-1"
         behavior="padding"

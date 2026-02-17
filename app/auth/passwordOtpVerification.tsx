@@ -55,7 +55,6 @@ const PasswordOtpVerification = () => {
 
   return (
     <View className="flex-1 bg-[#0F0B18]">
-      <StatusBar barStyle="light-content" />
       <KeyboardAvoidingView
         className="flex-1"
         behavior="padding"

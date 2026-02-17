@@ -119,7 +119,7 @@ const OTPInput = forwardRef<OTPInputHandle, OTPInputProps>(
               ref={(r) => {
                 inputRefs.current[i] = r;
               }}
-              className={`w-16 h-16 rounded-lg border-[1.5px] ${borderColor} ${bg} text-center text-3xl font-bold text-white sm:w-16 sm:h-20 md:w-20 md:h-24`}
+              className={`w-12 h-14 rounded-lg border-[1.5px] ${borderColor} ${bg} text-center text-3xl font-bold text-white sm:w-16 sm:h-20 md:w-20 md:h-24`}
               style={{
                 textAlignVertical: "center", // Vertically center on Android
                 includeFontPadding: false, // Remove extra padding on Android

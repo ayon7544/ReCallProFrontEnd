@@ -8,13 +8,18 @@ import { useFonts } from "expo-font";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as ExpoSplashScreen from "expo-splash-screen";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import * as NavigationBar from "expo-navigation-bar";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
+import { View, Platform } from "react-native";
 
 ExpoSplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const router = useRouter();
-
+  const insets = useSafeAreaInsets();
   const [showSplash, setShowSplash] = useState(true);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const [hasNavigated, setHasNavigated] = useState(false);
@@ -36,27 +41,33 @@ export default function RootLayout() {
       ExpoSplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      async function configureNavigationBar() {
+        await NavigationBar.setButtonStyleAsync("light");
+
+      }
+
+      configureNavigationBar();
+    }
+  }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setMinTimeElapsed(true);
-    }, 2000);
-
+    const timer = setTimeout(() => setMinTimeElapsed(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Push route once everything is ready
   useEffect(() => {
     if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
       setHasNavigated(true);
-      router.replace("/tabs/home"); // use replace to avoid back navigation to splash
+      router.replace("/tabs/home");
     }
   }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
 
   if (!fontsLoaded || !minTimeElapsed || showSplash) {
     return (
       <SafeAreaProvider>
-        <StatusBar style="light" />
+        <StatusBar style="light" backgroundColor="#000" translucent={false} />
         <SplashScreen onFinish={() => setShowSplash(false)} />
       </SafeAreaProvider>
     );
@@ -64,49 +75,31 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" />
-      <AlertNotificationRoot
-        theme="dark"
-        toastConfig={{
-          autoClose: 4000,
-          titleStyle: {
-            fontSize: 16,
-            fontWeight: "600",
-          },
-          textBodyStyle: {
-            fontSize: 14,
-            fontWeight: "400",
-          },
+      <View
+        style={{
+          flex: 1,
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom * 0.5,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+          backgroundColor: "#000000",
         }}
-        colors={[
-          {
-            label: "#1f2937",
-            card: "#ffffff",
-            overlay: "rgba(0,0,0,0.6)",
-            success: "#10b981",
-            danger: "#ef4444",
-            warning: "#f59e0b",
-            info: "#3b82f6",
-          },
-          {
-            label: "#f9fafb",
-            card: "#1f2937",
-            overlay: "rgba(0,0,0,0.8)",
-            success: "#22c55e",
-            danger: "#f87171",
-            warning: "#fbbf24",
-            info: "#60a5fa",
-          },
-        ]}
       >
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: "#fff" },
-            animation: "slide_from_right",
-          }}
+        <StatusBar
+          style="light"
+          backgroundColor="#000000"
+          translucent={false}
         />
-      </AlertNotificationRoot>
+        <AlertNotificationRoot theme="dark">
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "#000000" },
+              animation: "slide_from_right",
+            }}
+          />
+        </AlertNotificationRoot>
+      </View>
     </SafeAreaProvider>
   );
 }

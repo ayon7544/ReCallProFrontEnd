@@ -12,11 +12,12 @@ import OTPInput, { OTPInputHandle } from "@/components/shared/OtpInput";
 import ResendCode from "@/components/shared/ResentCode";
 import useOtp from "./services/hooks/useOtp";
 import ShowToast from "@/components/shared/ShowToast";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 const OtpVerification = () => {
   const otpRef = useRef<OTPInputHandle>(null);
   const params = useLocalSearchParams();
+  const router = useRouter();
 
   const {
     email,
@@ -36,6 +37,15 @@ const OtpVerification = () => {
       setEmail(params.email);
     }
   }, [params.email]);
+  useEffect(() => {
+    if (successMessage && !error) {
+      const timer = setTimeout(() => {
+        router.replace("/auth/login");
+      });
+
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage, error, router]);
 
   const handleSendOtp = async () => {
     await sendOtp();
@@ -43,12 +53,16 @@ const OtpVerification = () => {
   };
 
   const handleVerifyOtp = async () => {
-    await verifyOtp("123456"); // replace with backend OTP
+    const result = await verifyOtp("123456");
+
+    // Alternative: Navigate immediately after successful verification
+    // if (result && !error) {
+    //   router.replace("/home");
+    // }
   };
 
   return (
     <View className="flex-1 bg-[#0F0B18]">
-      <StatusBar barStyle="light-content" />
       <KeyboardAvoidingView
         className="flex-1"
         behavior="padding"

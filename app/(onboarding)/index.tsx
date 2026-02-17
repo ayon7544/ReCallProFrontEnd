@@ -53,7 +53,6 @@ const OnboardingScreen: React.FC = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-[#0F0B18]">
-      <StatusBar barStyle="light-content" />
 
       {/* SECTION 1: Illustration - Centered in the top area */}
       <Animated.View
@@ -84,7 +83,9 @@ const OnboardingScreen: React.FC = () => {
         </View>
 
         <View className="w-full gap-y-8">
-          <PaginationDots total={totalSteps} activeIndex={currentStep} />
+          <View className="py-4">
+            <PaginationDots total={totalSteps} activeIndex={currentStep} />
+          </View>
           <PrimaryButton
             label={currentStep === totalSteps - 1 ? "Get Started" : "Next"}
             onPress={handleNext}

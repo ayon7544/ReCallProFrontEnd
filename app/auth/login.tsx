@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -48,20 +48,24 @@ const Login = () => {
       });
       const subscription = BackHandler.addEventListener(
         "hardwareBackPress",
-        () => true, 
+        () => true,
       );
 
       return () => subscription.remove();
     }, [navigation]),
   );
 
-  const handleLoginGoogle = () => {
 
-  };
+  useEffect(() => {
+    if (successMessage && !error) {
+        router.replace("/tabs/home");
+    }
+  }, [successMessage, error, router]);
+
+  const handleLoginGoogle = () => {};
 
   return (
     <View className="flex-1 bg-[#0F0918]">
-      <StatusBar barStyle="light-content" />
       <KeyboardAvoidingView
         className="flex-1"
         behavior="padding"
