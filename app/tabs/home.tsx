@@ -1,12 +1,30 @@
 import React from "react";
 import {
   View,
-  StatusBar,
   ScrollView,
   KeyboardAvoidingView,
+  BackHandler,
 } from "react-native";
-
+import { useNavigation } from "expo-router";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 const home = () => {
+    const navigation = useNavigation();
+    useFocusEffect(
+      useCallback(() => {
+        navigation.setOptions({
+          gestureEnabled: false,
+          headerBackVisible: false,
+        });
+        const subscription = BackHandler.addEventListener(
+          "hardwareBackPress",
+          () => true,
+        );
+  
+        return () => subscription.remove();
+      }, [navigation]),
+    );
+  
   return (
     <View className="flex-1 bg-[#0F0B18]">
       <KeyboardAvoidingView

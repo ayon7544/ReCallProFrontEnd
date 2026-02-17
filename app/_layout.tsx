@@ -45,7 +45,6 @@ export default function RootLayout() {
     if (Platform.OS === "android") {
       async function configureNavigationBar() {
         await NavigationBar.setButtonStyleAsync("light");
-
       }
 
       configureNavigationBar();
@@ -60,14 +59,19 @@ export default function RootLayout() {
   useEffect(() => {
     if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
       setHasNavigated(true);
-      router.replace("/tabs/home");
+      router.replace("/subscription");
     }
   }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
 
   if (!fontsLoaded || !minTimeElapsed || showSplash) {
     return (
       <SafeAreaProvider>
-        <StatusBar style="light" backgroundColor="#000" translucent={false} />
+        <StatusBar
+          style="light"
+          translucent={true} 
+          backgroundColor="transparent"
+        />
+
         <SplashScreen onFinish={() => setShowSplash(false)} />
       </SafeAreaProvider>
     );
@@ -87,9 +91,10 @@ export default function RootLayout() {
       >
         <StatusBar
           style="light"
-          backgroundColor="#000000"
-          translucent={false}
+          translucent={true}
+          backgroundColor="transparent"
         />
+
         <AlertNotificationRoot theme="dark">
           <Stack
             screenOptions={{
