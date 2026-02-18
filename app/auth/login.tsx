@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StatusBar,
   KeyboardAvoidingView,
   ScrollView,
   Dimensions,
@@ -11,16 +10,16 @@ import {
 } from "react-native";
 import LoginLogo from "@/assets/images/SplashIcon.svg";
 import SvgIcon from "@/components/shared/svgIcon";
-import { AuthText } from "./components/AuthText";
+import AuthText from "@/components/auth/AuthText";
 import { EmailInput } from "@/components/shared/EmailField";
 import PasswordInput from "@/components/shared/PasswordField";
 import { Button } from "@/components/shared/Button";
-import GoogleButton from "./components/AuthText";
+import GoogleButton from "@/components/auth/GoogleButton";
 import googleSvg from "@/assets/images/auth/google-button.svg";
 import { Check } from "lucide-react-native";
 import ShowToast from "@/components/shared/ShowToast";
 import { useRouter, useFocusEffect, useNavigation } from "expo-router";
-import useLogin from "./services/hooks/useLogin";
+import useLogin from "@/services/hooks/auth/useLogin";
 
 const Login = () => {
   const {
@@ -55,10 +54,9 @@ const Login = () => {
     }, [navigation]),
   );
 
-
   useEffect(() => {
     if (successMessage && !error) {
-        router.replace("/tabs/home");
+      router.replace("/tabs/home");
     }
   }, [successMessage, error, router]);
 

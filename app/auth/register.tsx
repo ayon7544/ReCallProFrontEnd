@@ -11,18 +11,18 @@ import {
 } from "react-native";
 import LoginLogo from "@/assets/images/SplashIcon.svg";
 import SvgIcon from "@/components/shared/svgIcon";
-import { AuthText } from "./components/AuthText";
+import { AuthText } from "../../components/auth/AuthText";
 import { EmailInput } from "@/components/shared/EmailField";
 import { TextField } from "@/components/shared/TextField";
 import { MobileNumberInput } from "@/components/shared/PhoneNumberField";
 import PasswordInput from "@/components/shared/PasswordField";
 import { Button } from "@/components/shared/Button";
-import GoogleButton from "./components/AuthText";
+import GoogleButton from "@/components/auth/GoogleButton";
 import googleSvg from "@/assets/images/auth/google-button.svg";
 import { Check } from "lucide-react-native";
 import ShowToast from "@/components/shared/ShowToast";
 import { useRouter } from "expo-router";
-import useRegister from "./services/hooks/useRegister";
+import useRegister from "../../services/hooks/auth/useRegister";
 
 const register = () => {
   const {
@@ -57,9 +57,7 @@ const register = () => {
     }
   };
 
-  const handleLoginGoogle = () => {
-
-  };
+  const handleLoginGoogle = () => {};
 
   return (
     <View className="flex-1 bg-[#0F0918]">

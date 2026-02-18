@@ -10,9 +10,9 @@ import {
 import RecallProLogo from "@/assets/images/SplashIcon.svg";
 import SvgIcon from "@/components/shared/svgIcon";
 import { GeneralText } from "@/components/shared/GeneralText";
-import TrialBanner from "./components/TrialBanner";
-import { SubscriptionButton } from "./components/SubscriptionButton";
-import PlanSelector from "./components/PlanSelector";
+import TrialBanner from "../../components/subscription/TrialBanner";
+import { SubscriptionButton } from "../../components/subscription/SubscriptionButton";
+import PlanSelector from "../../components/subscription/PlanSelector";
 const Subscriptions = () => {
   const { width } = Dimensions.get("window");
 

@@ -59,7 +59,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
       setHasNavigated(true);
-      router.replace("/subscription");
+      router.replace("/tabs/home");
     }
   }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
 
@@ -68,7 +68,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <StatusBar
           style="light"
-          translucent={true} 
+          translucent={true}
           backgroundColor="transparent"
         />
 
@@ -82,7 +82,7 @@ export default function RootLayout() {
       <View
         style={{
           flex: 1,
-          paddingTop: insets.top,
+          paddingTop: insets.top * 0.5,
           paddingBottom: insets.bottom * 0.5,
           paddingLeft: insets.left,
           paddingRight: insets.right,

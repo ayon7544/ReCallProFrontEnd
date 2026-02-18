@@ -115,7 +115,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { display: "none" }, // Completely hides the default bar
+        tabBarStyle: { display: "none" },
       }}
       tabBar={(props) => <CustomTabBar {...props} />}
     >

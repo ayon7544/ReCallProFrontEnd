@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text } from "react-native";
-import GoogleButton from "./GoogleButton";
 
 interface AuthTextProps {
   title: string;
@@ -18,4 +17,4 @@ export const AuthText: React.FC<AuthTextProps> = ({ title, description }) => (
   </View>
 );
 
-export default GoogleButton;
+export default AuthText;

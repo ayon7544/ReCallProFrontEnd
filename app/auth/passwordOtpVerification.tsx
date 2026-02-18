@@ -9,7 +9,7 @@ import { Button } from "@/components/shared/Button";
 import { GeneralText } from "@/components/shared/GeneralText";
 import OTPInput, { OTPInputHandle } from "@/components/shared/OtpInput";
 import ResendCode from "@/components/shared/ResentCode";
-import useOtp from "./services/hooks/useOtp";
+import useOtp from "../../services/hooks/auth/useOtp";
 import ShowToast from "@/components/shared/ShowToast";
 import { useLocalSearchParams, useRouter } from "expo-router";
 

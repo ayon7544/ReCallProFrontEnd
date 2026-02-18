@@ -9,7 +9,7 @@ import { Button } from "@/components/shared/Button";
 import { GeneralText } from "@/components/shared/GeneralText";
 import ShowToast from "@/components/shared/ShowToast";
 import PasswordInput from "@/components/shared/PasswordField";
-import useChangePassword from "./services/hooks/useChangePassword";
+import useChangePassword from "../../services/hooks/auth/useChangePassword";
 import { useRouter } from "expo-router";
 
 const ChangePassword = () => {
