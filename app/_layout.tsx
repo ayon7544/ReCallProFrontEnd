@@ -59,10 +59,10 @@ export default function RootLayout() {
   useEffect(() => {
     if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
       setHasNavigated(true);
-      router.replace("/tabs/home");
+      // router.replace("/client/clientProfile");
+      router.replace("/tabs/clients");
     }
   }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
-
   if (!fontsLoaded || !minTimeElapsed || showSplash) {
     return (
       <SafeAreaProvider>

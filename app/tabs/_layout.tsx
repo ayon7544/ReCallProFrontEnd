@@ -1,22 +1,74 @@
-import React from "react";
-import { View, TouchableOpacity, Text, Platform } from "react-native";
+import React, { useEffect } from "react";
+import { View, TouchableOpacity, Text } from "react-native";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import Animated, {
+  useAnimatedStyle,
+  withSpring,
+  useSharedValue,
+} from "react-native-reanimated";
+import { colors, gradients } from "@/theme/colors";
+const icons: Record<string, string> = {
+  home: "home",
+  clients: "people",
+  analytics: "stats-chart",
+  settings: "settings",
+};
+
+const AnimatedTabItem = ({ route, isFocused, navigation, label }: any) => {
+  const translateY = useSharedValue(0);
+  const opacity = useSharedValue(isFocused ? 1 : 0.5);
+
+  useEffect(() => {
+    translateY.value = withSpring(isFocused ? -4 : 0, {
+      damping: 10,
+      stiffness: 200,
+    });
+    opacity.value = withSpring(isFocused ? 1 : 0.5);
+  }, [isFocused]);
+
+  const animatedIconStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+    opacity: opacity.value,
+  }));
+
+  const tintColor = isFocused ? gradients.primary[0] : colors.text.disabled;
+  const resolvedIcon = icons[route.name] || "ellipse";
+  const finalIcon = isFocused ? resolvedIcon : `${resolvedIcon}-outline`;
+
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate(route.name)}
+      className="flex-1 items-center justify-center z-10"
+      activeOpacity={0.7}
+    >
+      <Animated.View style={animatedIconStyle}>
+        <Ionicons name={finalIcon as any} size={22} color={tintColor} />
+      </Animated.View>
+      <Text style={{ color: tintColor, fontSize: 10, marginTop: 2 }}>
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
 const CustomTabBar = ({ state, descriptors, navigation }: any) => {
   return (
     <View className="absolute bottom-6 left-5 right-5 flex-row items-center justify-around px-2">
+      {/* Background Layer */}
       <View
         className="absolute inset-0 rounded-3xl"
         style={{
-          // backgroundColor: "#1a1a1a",
-          // borderWidth: 1,
-          // borderColor: "#333",
+          backgroundColor: "#1a1a1a",
+          borderWidth: 1,
+          borderColor: "#333",
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 0.3,
           shadowRadius: 8,
           elevation: 8,
         }}
       />
+
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
         const isFocused = state.index === index;
@@ -44,8 +96,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
                   activeOpacity={0.9}
                   className="w-[50px] h-[50px] bg-[#C9A367] rounded-full items-center justify-center"
                   style={{
-                    // Add additional glow to the button itself
-                    shadowColor: "#C9A367",
+                    shadowColor: gradients.primary[0],
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.5,
                     shadowRadius: 12,
@@ -61,61 +112,29 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
           );
         }
 
-        // --- Standard Tabs ---
-        let iconName: any;
-        switch (route.name) {
-          case "home":
-            iconName = "home";
-            break;
-          case "clients":
-            iconName = "people";
-            break;
-          case "analytics":
-            iconName = "stats-chart";
-            break;
-          case "settings":
-            iconName = "settings";
-            break;
-          default:
-            iconName = "ellipse";
-        }
-
-        const tintColor = isFocused ? "#c4a46a" : "#888";
-
+        // --- Using the Animated Component ---
         return (
-          <TouchableOpacity
+          <AnimatedTabItem
             key={route.key}
-            onPress={() => navigation.navigate(route.name)}
-            className="flex-1 items-center justify-center  z-10"
-          >
-            <Ionicons
-              name={isFocused ? iconName : `${iconName}-outline`}
-              size={26}
-              color={tintColor}
-            />
-            <Text
-              style={{
-                color: tintColor,
-                fontSize: 11,
-                marginTop: 4,
-                fontWeight: isFocused ? "600" : "400",
-              }}
-            >
-              {label}
-            </Text>
-          </TouchableOpacity>
+            route={route}
+            isFocused={isFocused}
+            navigation={navigation}
+            label={label}
+          />
         );
       })}
     </View>
   );
 };
-// 2. The Main Layout (The Default Export)
+
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: { display: "none" },
+        animation: "fade",
+        sceneStyle: { backgroundColor: "#0F0B18" },
       }}
       tabBar={(props) => <CustomTabBar {...props} />}
     >

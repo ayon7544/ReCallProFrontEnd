@@ -16,7 +16,7 @@ const SearchBox = ({
   onSubmitSearch,
 }: SearchBoxProps) => {
   return (
-    <View className="flex-row items-center px-4 h-16 border border-[#4F4F59] rounded-3xl">
+    <View className="flex-row items-center px-4 h-16 border border-[#4F4F59] rounded-2xl">
       <Search size={22} color="#C9A367" className="mr-2" />
       <TextInput
         className="flex-1 text-[#C9A367] text-lg h-full"

@@ -3,7 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function SubscriptionLayout() {
   return (
-    <SafeAreaProvider>
+
       <Stack
         screenOptions={{
           headerShown: false,
@@ -13,6 +13,5 @@ export default function SubscriptionLayout() {
       >
         <Stack.Screen name="subscriptions" />
       </Stack>
-    </SafeAreaProvider>
   );
 }
