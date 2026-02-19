@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
+
 interface TimelineVisitProps {
   id: string;
   date: string;
@@ -24,6 +25,13 @@ const TimelineVisitCard: React.FC<TimelineVisitProps> = ({
   media,
 }) => {
   const router = useRouter();
+
+  const handleNavigate = () => {
+    router.push(
+      `/client/visitDetails?id=${id}&date=${encodeURIComponent(date)}`,
+    );
+  };
+
   return (
     <View className="flex-row w-full px-2">
       <View className="items-center mr-4 w-4">
@@ -36,7 +44,7 @@ const TimelineVisitCard: React.FC<TimelineVisitProps> = ({
       >
         <View className="flex-row justify-between items-center mb-1 ">
           <Text className="text-base font-medium text-[#C9A367]">{date}</Text>
-          <TouchableOpacity onPress={() => router.push("/client/visitDetails")}>
+          <TouchableOpacity onPress={handleNavigate}>
             <Feather name="arrow-right" size={22} color="#fff" />
           </TouchableOpacity>
         </View>
