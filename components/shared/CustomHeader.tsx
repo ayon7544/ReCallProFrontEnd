@@ -24,7 +24,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ onEditPress }) => {
         onPress={handleBackPress}
         activeOpacity={0.7}
       >
-        <Ionicons name="arrow-back" size={20} color="#FFFFFF" />
+        <Ionicons name="arrow-back" size={22} color="#FFFFFF" />
       </TouchableOpacity>
 
       {/* Spacer to keep layout balanced */}

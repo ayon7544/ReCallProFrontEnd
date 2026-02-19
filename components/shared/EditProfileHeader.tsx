@@ -1,13 +1,15 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
-interface HeaderProps {
-  title: string;
+interface EditProfileHeaderProps {
+  onEditPress?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const EditProfileHeader: React.FC<EditProfileHeaderProps> = ({
+  onEditPress,
+}) => {
   const navigation =
     useNavigation<NavigationProp<Record<string, object | undefined>>>();
 
@@ -19,6 +21,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 
   return (
     <View className="w-full flex-row items-center justify-between bg-transparent px-3 pb-3 border-b border-gray-700">
+      {/* Back Button */}
       <TouchableOpacity
         className="w-10 h-10 rounded-full bg-[#2a2a2a] items-center justify-center"
         onPress={handleBackPress}
@@ -27,12 +30,19 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
         <Ionicons name="arrow-back" size={22} color="#FFFFFF" />
       </TouchableOpacity>
 
-      <Text className="text-white text-lg font-semibold">{title}</Text>
+      {/* Static Title */}
+      <Text className="text-white text-xl font-semibold">Edit Profile</Text>
 
-      {/* Spacer to keep layout balanced */}
-      <View style={{ width: 40 }} />
+      {/* Edit Button */}
+      <TouchableOpacity
+        className="rounded-full items-center justify-center"
+        onPress={onEditPress}
+        activeOpacity={0.7}
+      >
+        <Text className="text-[#C9A367] text-lg">Save</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default Header;
+export default EditProfileHeader;

@@ -10,6 +10,7 @@ export default function ClientLayout() {
     >
       <Stack.Screen name="clientProfile" />
       <Stack.Screen name="visitDetails" />
+      <Stack.Screen name="editProfile" />
     </Stack>
   );
 }

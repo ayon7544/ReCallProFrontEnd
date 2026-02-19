@@ -5,8 +5,11 @@ import {
   ActivityIndicator,
   Text,
   TouchableOpacity,
+  Platform,
 } from "react-native";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   useGetClientProfileDetails,
   ClientProfileDetails,
@@ -14,16 +17,23 @@ import {
 import CustomHeader from "@/components/shared/CustomHeader";
 import ClientProfileHeaderCard from "@/components/client/ClientProfileHeaderCard";
 import ClientDataTabs from "@/components/client/ClientDataTabs";
+
 type RootStackParamList = {
   clientProfile: { id: string };
+  editClient: { id: string };
+  addVisit: { clientId: string };
 };
 
 type ClientProfileRouteProp = RouteProp<RootStackParamList, "clientProfile">;
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "clientProfile"
+>;
 
 const ClientProfile: React.FC = () => {
   const route = useRoute<ClientProfileRouteProp>();
   const { id } = route.params;
-
+  const router = useRouter();
   const client = useGetClientProfileDetails(id) as
     | ClientProfileDetails
     | undefined;
@@ -37,19 +47,24 @@ const ClientProfile: React.FC = () => {
   }
 
   const handleAddNewVisit = () => {
-    // Navigate to Add Visit screen or open modal
-    console.log("Add New Visit pressed");
+    console.log("New Visit Added");
+  };
+
+  const handleEditClient = () => {
+    router.push({
+      pathname: "/client/editProfile",
+      params: { id },
+    });
   };
 
   return (
     <View className="flex-1 bg-[#0F0B18]">
       <KeyboardAvoidingView
         className="flex-1"
-        behavior="padding"
-        keyboardVerticalOffset={0}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <View className="flex-row justify-between items-center pt-8 px-4">
-          <CustomHeader />
+          <CustomHeader onEditPress={handleEditClient} />
         </View>
 
         <ClientProfileHeaderCard
@@ -61,7 +76,6 @@ const ClientProfile: React.FC = () => {
           containerClassName="px-4"
         />
 
-        {/* Add New Visit Button */}
         <View className="px-4 mt-4">
           <TouchableOpacity
             onPress={handleAddNewVisit}
@@ -72,6 +86,7 @@ const ClientProfile: React.FC = () => {
             </Text>
           </TouchableOpacity>
         </View>
+
         <View className="flex-1 mt-4">
           <ClientDataTabs client={client} />
         </View>
