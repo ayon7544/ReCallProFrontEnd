@@ -1,10 +1,19 @@
-import React from "react";
-import { View, Text, Image, ScrollView } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Dimensions,
+} from "react-native";
 import {
   Ionicons,
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import Video from "react-native-video";
 import {
   useGetServiceDetails,
   ServiceDetails as ServiceDetailsType,
@@ -16,6 +25,8 @@ interface Props {
 
 const ServiceDetails: React.FC<Props> = ({ id }) => {
   const service = useGetServiceDetails(id) as ServiceDetailsType;
+  const [playingId, setPlayingId] = useState<string | null>(null);
+  const [fullscreenUri, setFullscreenUri] = useState<string | null>(null);
 
   return (
     <>
@@ -27,22 +38,93 @@ const ServiceDetails: React.FC<Props> = ({ id }) => {
         {/* Top Images/Media */}
         {service.media.length > 0 && (
           <View className="flex-row justify-between mb-6">
-            {service.media.slice(0, 2).map((uri, index) => (
+            {service.media.slice(0, 2).map((item) => (
               <View
-                key={index}
+                key={item.id}
                 className={`${
                   service.media.length === 1 ? "w-full" : "w-[48%]"
                 } h-36 rounded-xl overflow-hidden border border-[#2D2C35] relative`}
               >
-                <Image
-                  source={{ uri }}
-                  className="w-full h-full opacity-80"
-                  resizeMode="cover"
-                />
-                {/* If you want to distinguish video vs image, extend the media type here */}
+                {item.type === "image" ? (
+                  <Image
+                    source={{ uri: item.uri }}
+                    className="w-full h-full opacity-80"
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    className="w-full h-full"
+                    onPress={() =>
+                      setPlayingId(playingId === item.id ? null : item.id)
+                    }
+                  >
+                    <Video
+                      source={{ uri: item.uri }}
+                      style={{ width: "100%", height: "100%" }}
+                      resizeMode="cover"
+                      muted
+                      paused={playingId !== item.id}
+                      repeat
+                      onError={(e) => console.log("Video error:", e)}
+                    />
+                    {/* Play overlay */}
+                    {playingId !== item.id && (
+                      <View className="absolute inset-0 bg-black/40 justify-center items-center">
+                        <View className="w-10 h-10 bg-white rounded-full justify-center items-center">
+                          <View
+                            style={{
+                              width: 0,
+                              height: 0,
+                              borderLeftWidth: 12,
+                              borderLeftColor: "#000",
+                              borderTopWidth: 7,
+                              borderTopColor: "transparent",
+                              borderBottomWidth: 7,
+                              borderBottomColor: "transparent",
+                              marginLeft: 2,
+                            }}
+                          />
+                        </View>
+                      </View>
+                    )}
+                    {/* Fullscreen button */}
+                    <TouchableOpacity
+                      className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded"
+                      onPress={() => setFullscreenUri(item.uri)}
+                    >
+                      <Text className="text-white text-xs">Full</Text>
+                    </TouchableOpacity>
+                  </TouchableOpacity>
+                )}
               </View>
             ))}
           </View>
+        )}
+
+        {/* Fullscreen Video Modal */}
+        {fullscreenUri && (
+          <Modal visible transparent={false} animationType="slide">
+            <View style={{ flex: 1, backgroundColor: "black" }}>
+              <Video
+                source={{ uri: fullscreenUri }}
+                style={{
+                  width: Dimensions.get("window").width,
+                  height: Dimensions.get("window").height,
+                }}
+                resizeMode="contain"
+                repeat
+                controls
+                onError={(e) => console.log("Fullscreen Video error:", e)}
+              />
+              <TouchableOpacity
+                className="absolute top-10 right-5 bg-black/50 px-3 py-2 rounded-md"
+                onPress={() => setFullscreenUri(null)}
+              >
+                <Text className="text-white">Close</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
         )}
 
         {/* Service Type Section */}

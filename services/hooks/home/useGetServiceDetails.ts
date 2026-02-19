@@ -1,9 +1,15 @@
+export interface MediaItem {
+  id: string;
+  uri: string;
+  type: "image" | "video";
+}
+
 export interface ServiceDetails {
   id: string;
   date: string;
   name: string;
   items: string[];
-  media: string[];
+  media: MediaItem[];
   serviceType: string[];
   serviceNotes: string;
   personalNotes: string;
@@ -21,8 +27,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Balayage & Cut",
     items: ["Used formula 7B + 6N on roots", "Toner 9V", "Blow dry finish"],
     media: [
-      "https://i.pravatar.cc/200?u=isabella-t1-1a",
-      "https://i.pravatar.cc/200?u=isabella-t1-1b",
+      {
+        id: "t1-1-m1",
+        uri: "https://media.istockphoto.com/id/1158647615/video/close-up-view-of-unrecognisable-female-customer-choosing-a-color-sample-at-a-paint-shop.mp4?s=mp4-640x640-is&k=20&c=OO3UW6frNcHdZvy3unpsfpgh1nzLR6GbrZ7JVw62OqI=",
+        type: "video",
+      },
+      {
+        id: "t1-1-m2",
+        uri: "https://i.pravatar.cc/200?u=isabella-t1-1b",
+        type: "image",
+      },
     ],
     serviceType: ["Balayage", "Haircut"],
     serviceNotes:
@@ -40,8 +54,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Balayage & Cut",
     items: ["Used formula 7B + 6N on roots", "Toner 9V", "Trim 2cm"],
     media: [
-      "https://i.pravatar.cc/200?u=isabella-t1-2a",
-      "https://i.pravatar.cc/200?u=isabella-t1-2b",
+      {
+        id: "t1-2-m1",
+        uri: "https://i.pravatar.cc/200?u=isabella-t1-2a",
+        type: "image",
+      },
+      {
+        id: "t1-2-m2",
+        uri: "https://i.pravatar.cc/200?u=isabella-t1-2b",
+        type: "image",
+      },
     ],
     serviceType: ["Balayage", "Haircut"],
     serviceNotes: "Formula 7B + 6N on roots, Toner 9V, trimmed 2cm off ends.",
@@ -56,7 +78,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2025-12-10",
     name: "Gloss Treatment",
     items: ["Clear gloss applied", "20 min processing"],
-    media: ["https://i.pravatar.cc/200?u=isabella-t1-3a"],
+    media: [
+      {
+        id: "t1-3-m1",
+        uri: "https://i.pravatar.cc/200?u=isabella-t1-3a",
+        type: "image",
+      },
+    ],
     serviceType: ["Gloss Treatment"],
     serviceNotes: "Clear gloss applied, 20 min processing time.",
     personalNotes: "Wanted shine boost before the holidays.",
@@ -73,8 +101,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Full Highlights",
     items: ["Bleach + 20vol", "Toner T18", "Gloss finish"],
     media: [
-      "https://i.pravatar.cc/200?u=sophia-t2-1a",
-      "https://i.pravatar.cc/200?u=sophia-t2-1b",
+      {
+        id: "t2-1-m1",
+        uri: "https://i.pravatar.cc/200?u=sophia-t2-1a",
+        type: "image",
+      },
+      {
+        id: "t2-1-m2",
+        uri: "https://i.pravatar.cc/200?u=sophia-t2-1b",
+        type: "image",
+      },
     ],
     serviceType: ["Full Highlights"],
     serviceNotes: "Bleach + 20vol, Toner T18, gloss finish applied.",
@@ -89,7 +125,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-01-15",
     name: "Full Highlights",
     items: ["Bleach + 20vol", "Toner T18"],
-    media: ["https://i.pravatar.cc/200?u=sophia-t2-2a"],
+    media: [
+      {
+        id: "t2-2-m1",
+        uri: "https://i.pravatar.cc/200?u=sophia-t2-2a",
+        type: "image",
+      },
+    ],
     serviceType: ["Full Highlights"],
     serviceNotes: "Bleach + 20vol, Toner T18. No gloss this time.",
     personalNotes: "Morning appointment preferred.",
@@ -120,8 +162,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Men's Fade",
     items: ["Guard 1 to skin fade", "Scissor finish on top", "Beard line-up"],
     media: [
-      "https://i.pravatar.cc/200?u=marcello-t3-1a",
-      "https://i.pravatar.cc/200?u=marcello-t3-1b",
+      {
+        id: "t3-1-m1",
+        uri: "https://i.pravatar.cc/200?u=marcello-t3-1a",
+        type: "image",
+      },
+      {
+        id: "t3-1-m2",
+        uri: "https://i.pravatar.cc/200?u=marcello-t3-1b",
+        type: "image",
+      },
     ],
     serviceType: ["Haircut", "Beard Trim"],
     serviceNotes:
@@ -137,7 +187,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-01-10",
     name: "Men's Fade",
     items: ["Guard 1 to skin fade", "Beard trim"],
-    media: ["https://i.pravatar.cc/200?u=marcello-t3-2a"],
+    media: [
+      {
+        id: "t3-2-m1",
+        uri: "https://i.pravatar.cc/200?u=marcello-t3-2a",
+        type: "image",
+      },
+    ],
     serviceType: ["Haircut", "Beard Trim"],
     serviceNotes: "Guard 1 to skin fade, beard trim.",
     personalNotes: "Comes every 3 weeks. No styling product.",
@@ -154,8 +210,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Balayage & Cut",
     items: ["Used formula 7B + 6N on roots", "Toner 9V"],
     media: [
-      "https://i.pravatar.cc/200?u=isabella4-t1a",
-      "https://i.pravatar.cc/200?u=isabella4-t1b",
+      {
+        id: "t4-1-m1",
+        uri: "https://i.pravatar.cc/200?u=isabella4-t1a",
+        type: "image",
+      },
+      {
+        id: "t4-1-m2",
+        uri: "https://i.pravatar.cc/200?u=isabella4-t1b",
+        type: "image",
+      },
     ],
     serviceType: ["Balayage", "Haircut"],
     serviceNotes: "Formula 7B + 6N on roots, Toner 9V.",
@@ -170,7 +234,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-01-25",
     name: "Balayage & Cut",
     items: ["Used formula 7B + 6N on roots", "Toner 9V"],
-    media: ["https://i.pravatar.cc/200?u=isabella4-t2a"],
+    media: [
+      {
+        id: "t4-2-m1",
+        uri: "https://i.pravatar.cc/200?u=isabella4-t2a",
+        type: "image",
+      },
+    ],
     serviceType: ["Balayage", "Haircut"],
     serviceNotes: "Formula 7B + 6N on roots, Toner 9V.",
     personalNotes: "Warm tones preferred. Book 2.5hr slot.",
@@ -186,7 +256,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-02-10",
     name: "Full Highlights",
     items: ["Bleach + 20vol", "Toner T18"],
-    media: ["https://i.pravatar.cc/200?u=sophia5-t1a"],
+    media: [
+      {
+        id: "t5-1-m1",
+        uri: "https://i.pravatar.cc/200?u=sophia5-t1a",
+        type: "image",
+      },
+    ],
     serviceType: ["Full Highlights"],
     serviceNotes: "Bleach + 20vol, Toner T18.",
     personalNotes: "PPD-free formula only.",
@@ -200,7 +276,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-01-15",
     name: "Full Highlights",
     items: ["Bleach + 20vol", "Gloss finish"],
-    media: ["https://i.pravatar.cc/200?u=sophia5-t2a"],
+    media: [
+      {
+        id: "t5-2-m1",
+        uri: "https://i.pravatar.cc/200?u=sophia5-t2a",
+        type: "image",
+      },
+    ],
     serviceType: ["Full Highlights"],
     serviceNotes: "Bleach + 20vol, gloss finish applied.",
     personalNotes: "Cool ash tones. Morning slot preferred.",
@@ -216,7 +298,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-02-05",
     name: "Men's Fade",
     items: ["Skin fade", "Scissor finish on top"],
-    media: ["https://i.pravatar.cc/200?u=marcello6-t1a"],
+    media: [
+      {
+        id: "t6-1-m1",
+        uri: "https://i.pravatar.cc/200?u=marcello6-t1a",
+        type: "image",
+      },
+    ],
     serviceType: ["Haircut"],
     serviceNotes: "Skin fade on sides, scissor finish on top.",
     personalNotes: "No product. Tight fade.",
@@ -233,8 +321,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Balayage & Cut",
     items: ["Formula 7B + 6N", "Toner 9V", "Blow dry"],
     media: [
-      "https://i.pravatar.cc/200?u=isabella7-t1a",
-      "https://i.pravatar.cc/200?u=isabella7-t1b",
+      {
+        id: "t7-1-m1",
+        uri: "https://i.pravatar.cc/200?u=isabella7-t1a",
+        type: "image",
+      },
+      {
+        id: "t7-1-m2",
+        uri: "https://i.pravatar.cc/200?u=isabella7-t1b",
+        type: "image",
+      },
     ],
     serviceType: ["Balayage", "Haircut"],
     serviceNotes: "Formula 7B + 6N, Toner 9V, blow dry finish.",
@@ -251,7 +347,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-02-10",
     name: "Full Highlights",
     items: ["Bleach + 20vol", "Toner T18"],
-    media: ["https://i.pravatar.cc/200?u=sophia8-t1a"],
+    media: [
+      {
+        id: "t8-1-m1",
+        uri: "https://i.pravatar.cc/200?u=sophia8-t1a",
+        type: "image",
+      },
+    ],
     serviceType: ["Full Highlights"],
     serviceNotes: "Bleach + 20vol, Toner T18.",
     personalNotes: "Cool ash. No PPD ever.",
@@ -267,7 +369,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-02-05",
     name: "Men's Fade",
     items: ["Guard 1 fade", "Beard trim"],
-    media: ["https://i.pravatar.cc/200?u=marcello9-t1a"],
+    media: [
+      {
+        id: "t9-1-m1",
+        uri: "https://i.pravatar.cc/200?u=marcello9-t1a",
+        type: "image",
+      },
+    ],
     serviceType: ["Haircut", "Beard Trim"],
     serviceNotes: "Guard 1 fade on sides, beard trim.",
     personalNotes: "Beard line-up optional this visit.",
@@ -284,8 +392,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Balayage & Cut",
     items: ["Formula 7B + 6N", "Toner 9V"],
     media: [
-      "https://i.pravatar.cc/200?u=isabella10-t1a",
-      "https://i.pravatar.cc/200?u=isabella10-t1b",
+      {
+        id: "t10-1-m1",
+        uri: "https://i.pravatar.cc/200?u=isabella10-t1a",
+        type: "image",
+      },
+      {
+        id: "t10-1-m2",
+        uri: "https://i.pravatar.cc/200?u=isabella10-t1b",
+        type: "image",
+      },
     ],
     serviceType: ["Balayage", "Haircut"],
     serviceNotes: "Formula 7B + 6N, Toner 9V.",
@@ -302,7 +418,13 @@ const serviceDetails: ServiceDetails[] = [
     date: "2026-02-10",
     name: "Full Highlights",
     items: ["Bleach + 20vol", "Toner T18", "Conditioning mask"],
-    media: ["https://i.pravatar.cc/200?u=sophia11-t1a"],
+    media: [
+      {
+        id: "t11-1-m1",
+        uri: "https://i.pravatar.cc/200?u=sophia11-t1a",
+        type: "image",
+      },
+    ],
     serviceType: ["Full Highlights"],
     serviceNotes: "Bleach + 20vol, Toner T18, conditioning mask applied.",
     personalNotes: "Olaplex treatment preferred. PPD-free formula.",
@@ -319,8 +441,16 @@ const serviceDetails: ServiceDetails[] = [
     name: "Men's Fade",
     items: ["Skin fade", "Scissor finish", "Beard shape"],
     media: [
-      "https://i.pravatar.cc/200?u=marcello12-t1a",
-      "https://i.pravatar.cc/200?u=marcello12-t1b",
+      {
+        id: "t12-1-m1",
+        uri: "https://i.pravatar.cc/200?u=marcello12-t1a",
+        type: "image",
+      },
+      {
+        id: "t12-1-m2",
+        uri: "https://i.pravatar.cc/200?u=marcello12-t1b",
+        type: "image",
+      },
     ],
     serviceType: ["Haircut", "Beard Trim"],
     serviceNotes: "Skin fade on sides, scissor finish on top, beard shape.",
