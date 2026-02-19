@@ -36,7 +36,7 @@ const UserCard = ({ name, lastService, imageUri, onPress }: UserCardProps) => {
 
       {/* Right Arrow Icon */}
       <View className="opacity-40">
-        <ChevronRight color="#4F4F59" size={24} strokeWidth={1.5} />
+        <ChevronRight color="#fff" size={24} strokeWidth={1.5} />
       </View>
     </TouchableOpacity>
   );

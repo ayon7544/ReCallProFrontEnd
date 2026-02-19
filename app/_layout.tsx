@@ -82,11 +82,11 @@ export default function RootLayout() {
       <View
         style={{
           flex: 1,
-          paddingTop: insets.top * 0.5,
+          paddingTop: insets.top,
           paddingBottom: insets.bottom * 0.5,
           paddingLeft: insets.left,
           paddingRight: insets.right,
-          backgroundColor: "#000000",
+          backgroundColor: "#0F0B18",
         }}
       >
         <StatusBar

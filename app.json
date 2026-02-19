@@ -37,6 +37,9 @@
     },
     "web": {
       "bundler": "metro"
-    }
+    },
+    "plugins": [
+      "expo-video"
+    ]
   }
 }

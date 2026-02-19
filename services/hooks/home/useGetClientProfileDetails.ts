@@ -3,7 +3,7 @@ export interface TimelineItem {
   date: string;
   name: string;
   items: string[];
-  images: string[];
+  media: string[];
 }
 
 export interface PhotoMedia {
@@ -45,7 +45,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-09",
         name: "Balayage & Cut",
         items: ["Used formula 7B + 6N on roots", "Toner 9V", "Blow dry finish"],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=isabella-t1-1a",
           "https://i.pravatar.cc/200?u=isabella-t1-1b",
         ],
@@ -55,7 +55,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-01-25",
         name: "Balayage & Cut",
         items: ["Used formula 7B + 6N on roots", "Toner 9V", "Trim 2cm"],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=isabella-t1-2a",
           "https://i.pravatar.cc/200?u=isabella-t1-2b",
         ],
@@ -65,7 +65,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2025-12-10",
         name: "Gloss Treatment",
         items: ["Clear gloss applied", "20 min processing"],
-        images: ["https://i.pravatar.cc/200?u=isabella-t1-3a"],
+        media: ["https://i.pravatar.cc/200?u=isabella-t1-3a"],
       },
     ],
     media: [
@@ -111,7 +111,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-10",
         name: "Full Highlights",
         items: ["Bleach + 20vol", "Toner T18", "Gloss finish"],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=sophia-t2-1a",
           "https://i.pravatar.cc/200?u=sophia-t2-1b",
         ],
@@ -121,14 +121,14 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-01-15",
         name: "Full Highlights",
         items: ["Bleach + 20vol", "Toner T18"],
-        images: ["https://i.pravatar.cc/200?u=sophia-t2-2a"],
+        media: ["https://i.pravatar.cc/200?u=sophia-t2-2a"],
       },
       {
         id: "t2-3",
         date: "2025-11-20",
         name: "Toner Refresh",
         items: ["Toner T18 reapplied", "10 min processing"],
-        images: [],
+        media: [],
       },
     ],
     media: [
@@ -139,7 +139,7 @@ const clientProfiles: ClientProfileDetails[] = [
       },
       {
         id: "p2-2",
-        uri: "https://i.pravatar.cc/300?u=sophia-photo-2",
+        uri: "https://media.istockphoto.com/id/1158647615/video/close-up-view-of-unrecognisable-female-customer-choosing-a-color-sample-at-a-paint-shop.mp4?s=mp4-640x640-is&k=20&c=OO3UW6frNcHdZvy3unpsfpgh1nzLR6GbrZ7JVw62OqI=",
         type: "video",
       },
       {
@@ -173,7 +173,7 @@ const clientProfiles: ClientProfileDetails[] = [
           "Scissor finish on top",
           "Beard line-up",
         ],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=marcello-t3-1a",
           "https://i.pravatar.cc/200?u=marcello-t3-1b",
         ],
@@ -183,7 +183,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-01-10",
         name: "Men's Fade",
         items: ["Guard 1 to skin fade", "Beard trim"],
-        images: ["https://i.pravatar.cc/200?u=marcello-t3-2a"],
+        media: ["https://i.pravatar.cc/200?u=marcello-t3-2a"],
       },
     ],
     media: [
@@ -219,7 +219,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-09",
         name: "Balayage & Cut",
         items: ["Used formula 7B + 6N on roots", "Toner 9V"],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=isabella4-t1a",
           "https://i.pravatar.cc/200?u=isabella4-t1b",
         ],
@@ -229,7 +229,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-01-25",
         name: "Balayage & Cut",
         items: ["Used formula 7B + 6N on roots", "Toner 9V"],
-        images: ["https://i.pravatar.cc/200?u=isabella4-t2a"],
+        media: ["https://i.pravatar.cc/200?u=isabella4-t2a"],
       },
     ],
     media: [
@@ -265,14 +265,14 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-10",
         name: "Full Highlights",
         items: ["Bleach + 20vol", "Toner T18"],
-        images: ["https://i.pravatar.cc/200?u=sophia5-t1a"],
+        media: ["https://i.pravatar.cc/200?u=sophia5-t1a"],
       },
       {
         id: "t5-2",
         date: "2026-01-15",
         name: "Full Highlights",
         items: ["Bleach + 20vol", "Gloss finish"],
-        images: ["https://i.pravatar.cc/200?u=sophia5-t2a"],
+        media: ["https://i.pravatar.cc/200?u=sophia5-t2a"],
       },
     ],
     media: [
@@ -307,7 +307,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-05",
         name: "Men's Fade",
         items: ["Skin fade", "Scissor finish on top"],
-        images: ["https://i.pravatar.cc/200?u=marcello6-t1a"],
+        media: ["https://i.pravatar.cc/200?u=marcello6-t1a"],
       },
     ],
     media: [
@@ -337,7 +337,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-09",
         name: "Balayage & Cut",
         items: ["Formula 7B + 6N", "Toner 9V", "Blow dry"],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=isabella7-t1a",
           "https://i.pravatar.cc/200?u=isabella7-t1b",
         ],
@@ -375,7 +375,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-10",
         name: "Full Highlights",
         items: ["Bleach + 20vol", "Toner T18"],
-        images: ["https://i.pravatar.cc/200?u=sophia8-t1a"],
+        media: ["https://i.pravatar.cc/200?u=sophia8-t1a"],
       },
     ],
     media: [
@@ -405,7 +405,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-05",
         name: "Men's Fade",
         items: ["Guard 1 fade", "Beard trim"],
-        images: ["https://i.pravatar.cc/200?u=marcello9-t1a"],
+        media: ["https://i.pravatar.cc/200?u=marcello9-t1a"],
       },
     ],
     media: [
@@ -435,7 +435,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-09",
         name: "Balayage & Cut",
         items: ["Formula 7B + 6N", "Toner 9V"],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=isabella10-t1a",
           "https://i.pravatar.cc/200?u=isabella10-t1b",
         ],
@@ -473,7 +473,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-10",
         name: "Full Highlights",
         items: ["Bleach + 20vol", "Toner T18", "Conditioning mask"],
-        images: ["https://i.pravatar.cc/200?u=sophia11-t1a"],
+        media: ["https://i.pravatar.cc/200?u=sophia11-t1a"],
       },
     ],
     media: [
@@ -509,7 +509,7 @@ const clientProfiles: ClientProfileDetails[] = [
         date: "2026-02-05",
         name: "Men's Fade",
         items: ["Skin fade", "Scissor finish", "Beard shape"],
-        images: [
+        media: [
           "https://i.pravatar.cc/200?u=marcello12-t1a",
           "https://i.pravatar.cc/200?u=marcello12-t1b",
         ],

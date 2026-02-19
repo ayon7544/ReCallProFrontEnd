@@ -20,7 +20,7 @@ import ShowToast from "@/components/shared/ShowToast";
 import StatCard from "@/components/shared/StatCard";
 import UserCard from "@/components/shared/userCard";
 import { useGetRecentlyViewed } from "@/services/hooks/home/useGetRecentlyViewed";
-
+import ServiceFilter from "@/components/home/ServiceFilter";
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigation = useNavigation();
@@ -77,17 +77,19 @@ const Home = () => {
               onPress={handleImagePress}
             />
           </View>
+          <View className="mt-4 flex-row items-center">
+            <View className="flex-1 mr-3">
+              <SearchBox
+                placeholder="Search clients or Service Types"
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                onSubmitSearch={handleSearchSubmit}
+              />
+            </View>
 
-          {/* Search */}
-          <View className="mt-4">
-            <SearchBox
-              placeholder="Search clients..."
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              onSubmitSearch={handleSearchSubmit}
-            />
+            {/* This takes only its own width (h-14 w-14) */}
+            <ServiceFilter onSearch={(val) => console.log(val)} />
           </View>
-
           {/* Stats */}
           <View className="flex-row justify-between items-center mt-6">
             <StatCard label="Total Clients" value={totalClients} />
