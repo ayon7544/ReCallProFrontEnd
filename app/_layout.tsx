@@ -60,7 +60,7 @@ export default function RootLayout() {
     if (fontsLoaded && minTimeElapsed && !showSplash && !hasNavigated) {
       setHasNavigated(true);
       // router.replace("/client/clientProfile");
-      router.replace("/tabs/clients");
+      router.replace("/tabs");
     }
   }, [fontsLoaded, minTimeElapsed, showSplash, hasNavigated, router]);
   if (!fontsLoaded || !minTimeElapsed || showSplash) {
