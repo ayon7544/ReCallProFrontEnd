@@ -5,7 +5,6 @@ import ServiceDetails from "@/components/client/ServiceDetails";
 import { useLocalSearchParams } from "expo-router";;
 const visitDetails = () => {
   const { id, date } = useLocalSearchParams<{ id: string; date: string }>();
-  console.log(id, date);
 
   return (
     <View className="flex-1 bg-[#0F0B18]">

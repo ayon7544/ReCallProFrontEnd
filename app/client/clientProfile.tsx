@@ -47,7 +47,7 @@ const ClientProfile: React.FC = () => {
   }
 
   const handleAddNewVisit = () => {
-    console.log("New Visit Added");
+    router.push("/client/addNewVisit");
   };
 
   const handleEditClient = () => {

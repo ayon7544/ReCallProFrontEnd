@@ -3,11 +3,11 @@ import { View, TouchableOpacity, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
-interface EditProfileHeaderProps {
+interface AddNewVisitHeaderProps {
   onEditPress?: () => void;
 }
 
-const EditProfileHeader: React.FC<EditProfileHeaderProps> = ({
+const AddNewVisitHeader: React.FC<AddNewVisitHeaderProps> = ({
   onEditPress,
 }) => {
   const navigation =
@@ -29,7 +29,7 @@ const EditProfileHeader: React.FC<EditProfileHeaderProps> = ({
         <Ionicons name="arrow-back" size={22} color="#FFFFFF" />
       </TouchableOpacity>
 
-      <Text className="text-white text-xl font-semibold">Edit Profile</Text>
+      <Text className="text-white text-xl font-semibold">New Visit</Text>
 
       <TouchableOpacity
         className="rounded-full items-center justify-center"
@@ -42,4 +42,4 @@ const EditProfileHeader: React.FC<EditProfileHeaderProps> = ({
   );
 };
 
-export default EditProfileHeader;
+export default AddNewVisitHeader;

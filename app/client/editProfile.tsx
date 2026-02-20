@@ -1,36 +1,71 @@
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   KeyboardAvoidingView,
   ScrollView,
   TouchableOpacity,
   Text,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import EditProfileHeader from "@/components/shared/EditProfileHeader";
-import { useGetClientInfo } from "@/services/hooks/home/useGetClientInfo";
-import { useEffect } from "react";
 import EditProfileForm from "@/components/shared/EditProfileForm";
 import DeleteModal from "@/components/shared/DeleteModal";
+import ShowToast from "@/components/shared/ShowToast";
+import { useGetClientInfo } from "@/services/hooks/home/useGetClientInfo";
+import { useClientEditProfile } from "@/services/hooks/home/useClientEditProfile";
+import { useDeleteProfile } from "@/services/hooks/home/useDeleteProfile";
 import { Trash2 } from "lucide-react-native";
 
-const editProfile = () => {
+const EditProfile = () => {
+  const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const clientInfo = useGetClientInfo(id);
+
+  const {
+    editProfile,
+    successMessage,
+    error: editError,
+    isLoading: isSaving,
+  } = useClientEditProfile();
+  const {
+    deleteProfile,
+    isLoading: isDeleting,
+    error: deleteError,
+  } = useDeleteProfile();
+  const [deleteSuccess, setDeleteSuccess] = useState<string | null>(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const saveRef = useRef<() => void>(() => {});
 
-  useEffect(() => {
-    if (clientInfo) {
-      console.log("Client Info:", clientInfo);
-    }
-  }, [clientInfo]);
+  // Merge errors/messages — show whichever is active
+  const toastMessage =
+    editError ?? deleteError ?? deleteSuccess ?? successMessage ?? null;
+  const toastType =
+    editError || deleteError ? "error" : successMessage ? "success" : "info";
 
-  const handleDeleteConfirm = () => {
-    setIsDeleteModalVisible(false);
-    // Handle delete logic here (e.g., call API, navigate back)
-    console.log("Client deleted:", id);
+
+  const handleSave = async (updatedData: {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    notes: string;
+    image: string;
+  }) => {
+    await editProfile({ id, ...updatedData });
   };
 
+  const handleDeleteConfirm = async () => {
+    const result = await deleteProfile(id);
+    setIsDeleteModalVisible(false);
+
+    if (result.success) {
+      // Show toast first, then navigate back after a short delay
+      setDeleteSuccess("Client deleted successfully.");
+      setTimeout(() => {
+        router.back();
+      }, 1500); // match this to however long your toast is visible
+    }
+  };
   return (
     <View className="flex-1 bg-[#0F0B18]">
       <KeyboardAvoidingView
@@ -38,9 +73,10 @@ const editProfile = () => {
         behavior="padding"
         keyboardVerticalOffset={0}
       >
-        <EditProfileHeader />
+        <ShowToast message={toastMessage} type={toastType} />
 
-        {/* Scrollable content */}
+        <EditProfileHeader onEditPress={() => saveRef.current()} />
+
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
           keyboardShouldPersistTaps="handled"
@@ -53,45 +89,57 @@ const editProfile = () => {
               phone={clientInfo.phoneNumber}
               email={clientInfo.email}
               notes={clientInfo.notes}
+              isLoading={isSaving}
+              onSave={handleSave}
+              registerSave={(fn) => {
+                saveRef.current = fn;
+              }}
             />
           )}
         </ScrollView>
 
-        {/* Delete Client Button — pinned to bottom */}
-        <View className=" mb-4 mx-4 my-10">
+        {/* Delete Button */}
+        <View className="mb-4 mx-4 my-10">
           <TouchableOpacity
             onPress={() => setIsDeleteModalVisible(true)}
+            disabled={isDeleting}
             activeOpacity={0.7}
-            className="w-full py-4 flex-row items-center justify-center gap-x-2"
+            className="w-full flex-row items-center justify-center gap-x-2"
             style={{
               borderWidth: 2,
               borderColor: "#82181A80",
-              padding: 20, // Adjusted padding for a better look
+              padding: 20,
               justifyContent: "center",
               alignItems: "center",
-              borderRadius: 12, // <-- Added for rounded corners
+              borderRadius: 12,
+              opacity: isDeleting ? 0.6 : 1,
             }}
           >
-            <Trash2 size={18} color="#ef4444" />
-            <Text className="text-white font-semibold text-base text-center">
-              Delete Client
-            </Text>
+            {isDeleting ? (
+              <ActivityIndicator size="small" color="#ef4444" />
+            ) : (
+              <>
+                <Trash2 size={18} color="#ef4444" />
+                <Text className="text-white font-semibold text-base text-center">
+                  Delete Client
+                </Text>
+              </>
+            )}
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
 
-      {/* Delete Confirmation Modal */}
       <DeleteModal
         isVisible={isDeleteModalVisible}
-        onClose={() => setIsDeleteModalVisible(false)}
+        onClose={() => !isDeleting && setIsDeleteModalVisible(false)}
         onConfirm={handleDeleteConfirm}
         title="Delete Client?"
         description={`Are you sure you want to delete ${clientInfo?.fullName ?? "this client"}? This action cannot be undone.`}
         cancelText="Cancel"
-        confirmText="Delete"
+        confirmText={isDeleting ? "Deleting..." : "Delete"}
       />
     </View>
   );
 };
 
-export default editProfile;
+export default EditProfile;
