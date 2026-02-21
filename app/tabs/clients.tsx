@@ -58,6 +58,7 @@ const clients = () => {
 
         {/* SCROLLABLE BOTTOM SECTION (Only the List) */}
         <FlatList
+          
           data={recentlyViewed}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
@@ -75,7 +76,7 @@ const clients = () => {
           )}
           contentContainerStyle={{
             paddingHorizontal: 24,
-            paddingBottom: 40,
+            paddingBottom: 150,
           }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"

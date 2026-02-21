@@ -44,7 +44,7 @@ const createClients = () => {
         </View>
 
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >

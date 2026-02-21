@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  ActivityIndicator,
-  Text,
-} from "react-native";
+import { View, ScrollView, KeyboardAvoidingView, Text } from "react-native";
 
 import { useAnalytics } from "@/services/hooks/analytics/useAnalytics";
 import AnalyticsBoxes from "@/components/Analytics/AnalyticsBoxes";
 import AnalyticsHeader from "@/components/Analytics/AnalyticsHeader";
 import RevenueChart from "@/components/Analytics/RevenueChart";
+import AnalyticsSkeleton from "@/constants/skeletons/AnalyticsSkeleton";
+
 const Analytics = () => {
   const [selectedYear, setSelectedYear] = useState("2025");
   const [selectedMonth, setSelectedMonth] = useState("Jun 05");
@@ -20,18 +16,11 @@ const Analytics = () => {
     selectedMonth,
   );
 
-  // ── Only show full-screen loader on very first load (no data yet) ──────────
+  // ── Skeleton on first load (no data yet) ──────────────────────────────────
   if (initialLoading) {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "#0D0A15",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <ActivityIndicator color="#B8974A" size="large" />
+      <View style={{ flex: 1, backgroundColor: "#0D0A15" }}>
+        <AnalyticsSkeleton />
       </View>
     );
   }
@@ -63,7 +52,6 @@ const Analytics = () => {
   }
 
   // ── Main render — data always present here ─────────────────────────────────
-  // On refresh: old data stays visible, no spinner blocking the UI
   return (
     <View style={{ flex: 1, backgroundColor: "#0D0A15" }}>
       <KeyboardAvoidingView
@@ -72,7 +60,7 @@ const Analytics = () => {
         keyboardVerticalOffset={0}
       >
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -84,13 +72,11 @@ const Analytics = () => {
               paddingBottom: 32,
             }}
           >
-            {/* Title */}
             <AnalyticsHeader
               title="Analytics"
               subtitle="Performance overview"
             />
 
-            {/* Stats boxes */}
             {data && (
               <AnalyticsBoxes
                 todayTotal={data.todayTotal}
@@ -103,7 +89,6 @@ const Analytics = () => {
               />
             )}
 
-            {/* Revenue chart */}
             {data && (
               <RevenueChart
                 chartData={data.chartData}

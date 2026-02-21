@@ -131,7 +131,7 @@ const Home = () => {
           )}
           contentContainerStyle={{
             paddingHorizontal: 24,
-            paddingBottom: 40,
+            paddingBottom:150,
           }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
