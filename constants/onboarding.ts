@@ -1,13 +1,13 @@
 
 import onboarding1 from "@/assets/images/onboarding/Container (1).png"
-import onboarding2 from "@/assets/images/onboarding/onboarding2.svg";
-import onboarding3 from "@/assets/images/onboarding/onboarding3.svg";
-import onboarding4 from "@/assets/images/onboarding/onboarding4.svg";
+import onboarding2 from "@/assets/images/onboarding/Container (2).png";
+import onboarding3 from "@/assets/images/onboarding/Container (3).png";
+import onboarding4 from "@/assets/images/onboarding/Container (4).png";
 
 export const ONBOARDING_DATA = [
   {
-    title: "Recall Pro helps you...",
-    description: "The ultimate tool for professional service providers.",
+    title: "",
+    description: "",
     image: onboarding1,
   },
   {

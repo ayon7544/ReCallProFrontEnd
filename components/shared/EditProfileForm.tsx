@@ -49,7 +49,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
   }, [fullName, phoneNumber, emailVal, notesVal]);
 
   return (
-    <View className="w-full bg-[#0d0d12] px-6 pt-10 pb-6">
+    <View className="w-full  px-6 pt-10 pb-6">
       {/* Profile Image */}
       <View className="items-center mb-8">
         <View className="w-24 h-24 rounded-full border-2 border-zinc-800 overflow-hidden bg-zinc-900">

@@ -99,7 +99,7 @@ const EditProfile = () => {
         </ScrollView>
 
         {/* Delete Button */}
-        <View className="mb-4 mx-4 my-10">
+        <View className="mb-4 mx-4  pb-5">
           <TouchableOpacity
             onPress={() => setIsDeleteModalVisible(true)}
             disabled={isDeleting}
